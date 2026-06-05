@@ -1,0 +1,141 @@
+{
+  "version": "1.0",
+  "description": "Benefit Navigator - PBM lookup, reject codes, PA simulator, pricing estimator",
+  "pbms": [
+    {"name": "OptumRx", "bin": "610279", "pcn": "OPTUMRX", "type": "Commercial/Medicare"},
+    {"name": "CVS Caremark", "bin": "004336", "pcn": "ADVANTAGE", "type": "Commercial/Medicare"},
+    {"name": "Express Scripts", "bin": "610011", "pcn": "ESRX", "type": "Commercial/Medicare"},
+    {"name": "Prime Therapeutics", "bin": "610014", "pcn": "PRIME", "type": "Commercial"},
+    {"name": "MedImpact", "bin": "610355", "pcn": "MEDIMPACT", "type": "Commercial"},
+    {"name": "Navitus", "bin": "610222", "pcn": "NAVITUS", "type": "Commercial"},
+    {"name": "Abarca Health", "bin": "610577", "pcn": "ABARCA", "type": "Commercial"},
+    {"name": "Humana Pharmacy", "bin": "610111", "pcn": "HUMANA", "type": "Medicare"},
+    {"name": "Blue Cross Blue Shield", "bin": "610555", "pcn": "BCBS", "type": "Commercial"},
+    {"name": "Aetna", "bin": "610345", "pcn": "AETNA", "type": "Commercial/Medicare"},
+    {"name": "Cigna", "bin": "610678", "pcn": "CIGNA", "type": "Commercial"},
+    {"name": "WellCare", "bin": "610999", "pcn": "WELLCARE", "type": "Medicare/Medicaid"},
+    {"name": "UnitedHealthcare", "bin": "610888", "pcn": "UHC", "type": "Commercial/Medicare"},
+    {"name": "Kaiser Permanente", "bin": "610777", "pcn": "KAISER", "type": "Integrated"},
+    {"name": "Moda Health", "bin": "610444", "pcn": "MODA", "type": "Commercial"}
+  ],
+  "reject_codes": [
+    {"code": "75", "meaning": "Prior Authorization Required", "action": "Submit PA request to PBM with clinical criteria"},
+    {"code": "70", "meaning": "Product/Service Not Covered", "action": "Check formulary alternatives or request exception"},
+    {"code": "52", "meaning": "Nonmatched Cardholder ID", "action": "Verify BIC/CIN/HAP number matches exactly patient card"},
+    {"code": "88", "meaning": "Non-Matched Prescriber", "action": "Verify prescriber NPI/DEA is active and correct"},
+    {"code": "3M", "meaning": "Refill Too Soon", "action": "Check last fill date or request emergency override"},
+    {"code": "AF", "meaning": "Patient Enrolled Under Managed Care", "action": "Contact MCO for correct billing instructions"},
+    {"code": "E1", "meaning": "Eligibility Verification Request", "action": "Run eligibility check before billing claim"},
+    {"code": "54", "meaning": "Invalid Prescriber ID", "action": "Verify prescriber license is active in state"},
+    {"code": "76", "meaning": "Plan Exhausted Benefit", "action": "Notify patient. Check if new benefit period started"},
+    {"code": "77", "meaning": "Non-Matched Date of Birth", "action": "Verify DOB matches exactly with insurance records"},
+    {"code": "81", "meaning": "Invalid NDC", "action": "Check NDC format (11 digits, no spaces or dashes)"},
+    {"code": "85", "meaning": "Claim Not Covered - Patient Not Enrolled", "action": "Verify enrollment status with employer/plan"}
+  ],
+  "pa_criteria": [
+    {
+      "drug": "Mounjaro (tirzepatide)",
+      "drug_class": "GLP-1 / GIP",
+      "indications": ["Type 2 Diabetes Mellitus"],
+      "age_requirement": "≥18 years",
+      "a1c_requirement": "≥6.5% within past 6 months",
+      "step_therapy": "Trial/failure of metformin (3 months minimum)",
+      "quantity_limit": "4 pens per 28 days",
+      "prescriber": "Any licensed prescriber",
+      "documentation_needed": ["A1c lab results", "Metformin prescription history"]
+    },
+    {
+      "drug": "Ozempic (semaglutide)",
+      "drug_class": "GLP-1",
+      "indications": ["Type 2 Diabetes Mellitus"],
+      "age_requirement": "≥18 years",
+      "a1c_requirement": "≥7.0% within past 6 months",
+      "step_therapy": "Trial/failure of metformin or other oral agent",
+      "quantity_limit": "3ml per 28 days",
+      "prescriber": "Any licensed prescriber",
+      "documentation_needed": ["A1c lab results", "Medication history"]
+    },
+    {
+      "drug": "Wegovy (semaglutide)",
+      "drug_class": "GLP-1 for weight loss",
+      "indications": ["Obesity (BMI ≥30) or overweight (BMI ≥27 with comorbidity)"],
+      "age_requirement": "≥18 years",
+      "a1c_requirement": null,
+      "step_therapy": "Participation in lifestyle modification program",
+      "quantity_limit": "2.4mg/week maximum",
+      "prescriber": "Any licensed prescriber",
+      "documentation_needed": ["BMI documentation", "Weight history"]
+    },
+    {
+      "drug": "Humira (adalimumab)",
+      "drug_class": "TNF-alpha inhibitor",
+      "indications": ["Rheumatoid Arthritis", "Psoriasis", "Crohn's Disease", "Ulcerative Colitis", "Ankylosing Spondylitis"],
+      "age_requirement": "≥18 years",
+      "step_therapy": "Failure of methotrexate or other DMARD (for RA)",
+      "prescriber": "Specialist (Rheumatology/Dermatology/GI)",
+      "documentation_needed": ["Diagnosis confirmation", "Prior treatment history"]
+    },
+    {
+      "drug": "Enbrel (etanercept)",
+      "drug_class": "TNF-alpha inhibitor",
+      "indications": ["Rheumatoid Arthritis", "Psoriasis", "Ankylosing Spondylitis"],
+      "age_requirement": "≥18 years",
+      "step_therapy": "Failure of methotrexate (at least 3 months)",
+      "prescriber": "Specialist (Rheumatology/Dermatology)",
+      "documentation_needed": ["Diagnosis confirmation", "Methotrexate trial documentation"]
+    },
+    {
+      "drug": "Entyvio (vedolizumab)",
+      "drug_class": "Integrin antagonist",
+      "indications": ["Crohn's Disease", "Ulcerative Colitis"],
+      "age_requirement": "≥18 years",
+      "step_therapy": "Failure of TNF-alpha inhibitor (Humira, Remicade)",
+      "prescriber": "Gastroenterologist",
+      "documentation_needed": ["Biopsy results", "Prior biologic history"]
+    },
+    {
+      "drug": "Dupixent (dupilumab)",
+      "drug_class": "IL-4/IL-13 inhibitor",
+      "indications": ["Eczema (atopic dermatitis)", "Asthma", "Nasal polyps"],
+      "age_requirement": "≥6 years (≥12 for asthma)",
+      "step_therapy": "Failure of topical steroids or other systemic therapy",
+      "prescriber": "Dermatologist/Allergist/Pulmonologist",
+      "documentation_needed": ["Disease severity score", "Topical treatment history"]
+    }
+  ],
+  "step_therapy_examples": [
+    {
+      "scenario": "GLP-1 for Type 2 Diabetes",
+      "preferred_first_line": "Metformin",
+      "step_required": "3 months trial",
+      "alternative": "Sulfonylurea or DPP-4 inhibitor",
+      "criteria_to_skip": "Metformin intolerance or contraindication (eGFR <30)"
+    },
+    {
+      "scenario": "TNF-alpha inhibitor for Rheumatoid Arthritis",
+      "preferred_first_line": "Methotrexate",
+      "step_required": "3 months minimum",
+      "alternative": "Leflunomide or Sulfasalazine",
+      "criteria_to_skip": "Methotrexate contraindication (liver disease, blood dyscrasia)"
+    },
+    {
+      "scenario": "Biologic for Crohn's Disease",
+      "preferred_first_line": "Mesalamine or immunomodulator",
+      "step_required": "Failure of conventional therapy",
+      "alternative": "Corticosteroids for acute flare",
+      "criteria_to_skip": "Severe disease requiring immediate biologic"
+    }
+  ],
+  "pricing_examples": [
+    {"drug": "Metformin 500mg", "quantity": "30 tabs", "insurance_copay": "$5", "goodrx": "$4", "costplus": "$3.60"},
+    {"drug": "Atorvastatin 40mg", "quantity": "30 tabs", "insurance_copay": "$10", "goodrx": "$8", "costplus": "$6.30"},
+    {"drug": "Lisinopril 10mg", "quantity": "30 tabs", "insurance_copay": "$8", "goodrx": "$6", "costplus": "$4.80"},
+    {"drug": "Levothyroxine 88mcg", "quantity": "30 tabs", "insurance_copay": "$7", "goodrx": "$5", "costplus": "$4.20"},
+    {"drug": "Amlodipine 5mg", "quantity": "30 tabs", "insurance_copay": "$6", "goodrx": "$4.50", "costplus": "$3.90"},
+    {"drug": "Mounjaro 5mg", "quantity": "4 pens", "insurance_copay": "$50", "goodrx": "$980", "costplus": "Not available"},
+    {"drug": "Ozempic 0.5mg", "quantity": "3ml pen", "insurance_copay": "$45", "goodrx": "$850", "costplus": "Not available"},
+    {"drug": "Humira 40mg", "quantity": "2 pens", "insurance_copay": "$60", "goodrx": "$5,200", "costplus": "Not available"},
+    {"drug": "Enbrel 50mg", "quantity": "4 pens", "insurance_copay": "$65", "goodrx": "$4,800", "costplus": "Not available"},
+    {"drug": "Dupixent 300mg", "quantity": "2 pens", "insurance_copay": "$70", "goodrx": "$3,400", "costplus": "Not available"}
+  ]
+}
