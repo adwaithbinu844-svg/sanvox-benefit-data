@@ -1,36 +1,39 @@
 {
-  "version": "1.0",
-  "description": "Benefit Navigator - PBM lookup, reject codes, PA simulator, pricing estimator",
+  "version": "2.0",
+  "description": "Benefit Navigator - PBM lookup, reject codes, PA simulator, pricing estimator with AI brain",
   "pbms": [
-    {"name": "OptumRx", "bin": "610279", "pcn": "OPTUMRX", "type": "Commercial/Medicare"},
-    {"name": "CVS Caremark", "bin": "004336", "pcn": "ADVANTAGE", "type": "Commercial/Medicare"},
-    {"name": "Express Scripts", "bin": "610011", "pcn": "ESRX", "type": "Commercial/Medicare"},
-    {"name": "Prime Therapeutics", "bin": "610014", "pcn": "PRIME", "type": "Commercial"},
-    {"name": "MedImpact", "bin": "610355", "pcn": "MEDIMPACT", "type": "Commercial"},
-    {"name": "Navitus", "bin": "610222", "pcn": "NAVITUS", "type": "Commercial"},
-    {"name": "Abarca Health", "bin": "610577", "pcn": "ABARCA", "type": "Commercial"},
-    {"name": "Humana Pharmacy", "bin": "610111", "pcn": "HUMANA", "type": "Medicare"},
-    {"name": "Blue Cross Blue Shield", "bin": "610555", "pcn": "BCBS", "type": "Commercial"},
-    {"name": "Aetna", "bin": "610345", "pcn": "AETNA", "type": "Commercial/Medicare"},
-    {"name": "Cigna", "bin": "610678", "pcn": "CIGNA", "type": "Commercial"},
-    {"name": "WellCare", "bin": "610999", "pcn": "WELLCARE", "type": "Medicare/Medicaid"},
-    {"name": "UnitedHealthcare", "bin": "610888", "pcn": "UHC", "type": "Commercial/Medicare"},
-    {"name": "Kaiser Permanente", "bin": "610777", "pcn": "KAISER", "type": "Integrated"},
-    {"name": "Moda Health", "bin": "610444", "pcn": "MODA", "type": "Commercial"}
+    {"name": "OptumRx", "bin": "610279", "pcn": "OPTUMRX", "type": "Commercial/Medicare", "phone": "1-800-356-3955"},
+    {"name": "CVS Caremark", "bin": "004336", "pcn": "ADVANTAGE", "type": "Commercial/Medicare", "phone": "1-800-554-4550"},
+    {"name": "Express Scripts", "bin": "610011", "pcn": "ESRX", "type": "Commercial/Medicare", "phone": "1-800-711-0917"},
+    {"name": "Prime Therapeutics", "bin": "610014", "pcn": "PRIME", "type": "Commercial", "phone": "1-800-858-3080"},
+    {"name": "MedImpact", "bin": "610355", "pcn": "MEDIMPACT", "type": "Commercial", "phone": "1-800-788-2949"},
+    {"name": "Navitus", "bin": "610222", "pcn": "NAVITUS", "type": "Commercial", "phone": "1-866-333-2757"},
+    {"name": "Abarca Health", "bin": "610577", "pcn": "ABARCA", "type": "Commercial", "phone": "1-844-622-2721"},
+    {"name": "Humana Pharmacy", "bin": "610111", "pcn": "HUMANA", "type": "Medicare", "phone": "1-800-486-2660"},
+    {"name": "Blue Cross Blue Shield", "bin": "610555", "pcn": "BCBS", "type": "Commercial", "phone": "1-800-676-2583"},
+    {"name": "Aetna", "bin": "610345", "pcn": "AETNA", "type": "Commercial/Medicare", "phone": "1-800-872-3862"},
+    {"name": "Cigna", "bin": "610678", "pcn": "CIGNA", "type": "Commercial", "phone": "1-800-244-6224"},
+    {"name": "WellCare", "bin": "610999", "pcn": "WELLCARE", "type": "Medicare/Medicaid", "phone": "1-877-389-9457"},
+    {"name": "UnitedHealthcare", "bin": "610888", "pcn": "UHC", "type": "Commercial/Medicare", "phone": "1-800-527-3028"},
+    {"name": "Kaiser Permanente", "bin": "610777", "pcn": "KAISER", "type": "Integrated", "phone": "1-800-464-4000"},
+    {"name": "Moda Health", "bin": "610444", "pcn": "MODA", "type": "Commercial", "phone": "1-800-232-6632"}
   ],
   "reject_codes": [
-    {"code": "75", "meaning": "Prior Authorization Required", "action": "Submit PA request to PBM with clinical criteria"},
-    {"code": "70", "meaning": "Product/Service Not Covered", "action": "Check formulary alternatives or request exception"},
-    {"code": "52", "meaning": "Nonmatched Cardholder ID", "action": "Verify BIC/CIN/HAP number matches exactly patient card"},
-    {"code": "88", "meaning": "Non-Matched Prescriber", "action": "Verify prescriber NPI/DEA is active and correct"},
-    {"code": "3M", "meaning": "Refill Too Soon", "action": "Check last fill date or request emergency override"},
-    {"code": "AF", "meaning": "Patient Enrolled Under Managed Care", "action": "Contact MCO for correct billing instructions"},
-    {"code": "E1", "meaning": "Eligibility Verification Request", "action": "Run eligibility check before billing claim"},
-    {"code": "54", "meaning": "Invalid Prescriber ID", "action": "Verify prescriber license is active in state"},
-    {"code": "76", "meaning": "Plan Exhausted Benefit", "action": "Notify patient. Check if new benefit period started"},
-    {"code": "77", "meaning": "Non-Matched Date of Birth", "action": "Verify DOB matches exactly with insurance records"},
-    {"code": "81", "meaning": "Invalid NDC", "action": "Check NDC format (11 digits, no spaces or dashes)"},
-    {"code": "85", "meaning": "Claim Not Covered - Patient Not Enrolled", "action": "Verify enrollment status with employer/plan"}
+    {"code": "75", "meaning": "Prior Authorization Required", "action": "Submit PA request to PBM with clinical criteria", "category": "Clinical"},
+    {"code": "70", "meaning": "Product/Service Not Covered", "action": "Check formulary alternatives or request exception", "category": "Coverage"},
+    {"code": "52", "meaning": "Nonmatched Cardholder ID", "action": "Verify BIC/CIN/HAP number matches exactly patient card", "category": "Eligibility"},
+    {"code": "88", "meaning": "Non-Matched Prescriber", "action": "Verify prescriber NPI/DEA is active and correct", "category": "Prescriber"},
+    {"code": "3M", "meaning": "Refill Too Soon", "action": "Check last fill date or request emergency override", "category": "Utilization"},
+    {"code": "AF", "meaning": "Patient Enrolled Under Managed Care", "action": "Contact MCO for correct billing instructions", "category": "Eligibility"},
+    {"code": "E1", "meaning": "Eligibility Verification Request", "action": "Run eligibility check before billing claim", "category": "Eligibility"},
+    {"code": "54", "meaning": "Invalid Prescriber ID", "action": "Verify prescriber license is active in state", "category": "Prescriber"},
+    {"code": "76", "meaning": "Plan Exhausted Benefit", "action": "Notify patient. Check if new benefit period started", "category": "Coverage"},
+    {"code": "77", "meaning": "Non-Matched Date of Birth", "action": "Verify DOB matches exactly with insurance records", "category": "Eligibility"},
+    {"code": "81", "meaning": "Invalid NDC", "action": "Check NDC format (11 digits, no spaces or dashes)", "category": "Billing"},
+    {"code": "85", "meaning": "Claim Not Covered - Patient Not Enrolled", "action": "Verify enrollment status with employer/plan", "category": "Eligibility"},
+    {"code": "32", "meaning": "Duplicate Claim", "action": "Check if claim was already submitted and processed", "category": "Billing"},
+    {"code": "14", "meaning": "Invalid Date of Service", "action": "Verify service date is within coverage period", "category": "Billing"},
+    {"code": "89", "meaning": "Prescriber Not Eligible", "action": "Verify prescriber credentials with state board", "category": "Prescriber"}
   ],
   "pa_criteria": [
     {
@@ -42,7 +45,9 @@
       "step_therapy": "Trial/failure of metformin (3 months minimum)",
       "quantity_limit": "4 pens per 28 days",
       "prescriber": "Any licensed prescriber",
-      "documentation_needed": ["A1c lab results", "Metformin prescription history"]
+      "documentation_needed": ["A1c lab results", "Metformin prescription history"],
+      "approval_time": "3-5 business days",
+      "appeal_process": "Submit clinical notes and lab results"
     },
     {
       "drug": "Ozempic (semaglutide)",
@@ -53,7 +58,9 @@
       "step_therapy": "Trial/failure of metformin or other oral agent",
       "quantity_limit": "3ml per 28 days",
       "prescriber": "Any licensed prescriber",
-      "documentation_needed": ["A1c lab results", "Medication history"]
+      "documentation_needed": ["A1c lab results", "Medication history"],
+      "approval_time": "2-4 business days",
+      "appeal_process": "Submit A1c trends and medication adherence history"
     },
     {
       "drug": "Wegovy (semaglutide)",
@@ -64,7 +71,9 @@
       "step_therapy": "Participation in lifestyle modification program",
       "quantity_limit": "2.4mg/week maximum",
       "prescriber": "Any licensed prescriber",
-      "documentation_needed": ["BMI documentation", "Weight history"]
+      "documentation_needed": ["BMI documentation", "Weight history"],
+      "approval_time": "5-7 business days",
+      "appeal_process": "Submit weight loss program participation records"
     },
     {
       "drug": "Humira (adalimumab)",
@@ -73,7 +82,9 @@
       "age_requirement": "≥18 years",
       "step_therapy": "Failure of methotrexate or other DMARD (for RA)",
       "prescriber": "Specialist (Rheumatology/Dermatology/GI)",
-      "documentation_needed": ["Diagnosis confirmation", "Prior treatment history"]
+      "documentation_needed": ["Diagnosis confirmation", "Prior treatment history"],
+      "approval_time": "7-10 business days",
+      "appeal_process": "Submit specialist consultation notes and treatment history"
     },
     {
       "drug": "Enbrel (etanercept)",
@@ -82,7 +93,9 @@
       "age_requirement": "≥18 years",
       "step_therapy": "Failure of methotrexate (at least 3 months)",
       "prescriber": "Specialist (Rheumatology/Dermatology)",
-      "documentation_needed": ["Diagnosis confirmation", "Methotrexate trial documentation"]
+      "documentation_needed": ["Diagnosis confirmation", "Methotrexate trial documentation"],
+      "approval_time": "5-7 business days",
+      "appeal_process": "Submit methotrexate failure documentation"
     },
     {
       "drug": "Entyvio (vedolizumab)",
@@ -91,7 +104,9 @@
       "age_requirement": "≥18 years",
       "step_therapy": "Failure of TNF-alpha inhibitor (Humira, Remicade)",
       "prescriber": "Gastroenterologist",
-      "documentation_needed": ["Biopsy results", "Prior biologic history"]
+      "documentation_needed": ["Biopsy results", "Prior biologic history"],
+      "approval_time": "7-10 business days",
+      "appeal_process": "Submit biopsy results and prior biologic failure documentation"
     },
     {
       "drug": "Dupixent (dupilumab)",
@@ -100,7 +115,22 @@
       "age_requirement": "≥6 years (≥12 for asthma)",
       "step_therapy": "Failure of topical steroids or other systemic therapy",
       "prescriber": "Dermatologist/Allergist/Pulmonologist",
-      "documentation_needed": ["Disease severity score", "Topical treatment history"]
+      "documentation_needed": ["Disease severity score", "Topical treatment history"],
+      "approval_time": "5-7 business days",
+      "appeal_process": "Submit disease severity documentation and treatment history"
+    },
+    {
+      "drug": "Jardiance (empagliflozin)",
+      "drug_class": "SGLT-2 inhibitor",
+      "indications": ["Type 2 Diabetes Mellitus", "Heart Failure", "CKD"],
+      "age_requirement": "≥18 years",
+      "a1c_requirement": "≥7.0% or heart failure diagnosis",
+      "step_therapy": "Trial of metformin unless contraindicated",
+      "quantity_limit": "1 tablet daily",
+      "prescriber": "Any licensed prescriber",
+      "documentation_needed": ["A1c lab results", "Cardiac evaluation"],
+      "approval_time": "2-3 business days",
+      "appeal_process": "Submit cardiac workup documentation"
     }
   ],
   "step_therapy_examples": [
@@ -124,18 +154,25 @@
       "step_required": "Failure of conventional therapy",
       "alternative": "Corticosteroids for acute flare",
       "criteria_to_skip": "Severe disease requiring immediate biologic"
+    },
+    {
+      "scenario": "SGLT-2 inhibitor for Type 2 Diabetes",
+      "preferred_first_line": "Metformin",
+      "step_required": "3 months trial or contraindication",
+      "alternative": "DPP-4 inhibitor or sulfonylurea",
+      "criteria_to_skip": "Heart failure or CKD diagnosis"
     }
   ],
   "pricing_examples": [
-    {"drug": "Metformin 500mg", "quantity": "30 tabs", "insurance_copay": "$5", "goodrx": "$4", "costplus": "$3.60"},
-    {"drug": "Atorvastatin 40mg", "quantity": "30 tabs", "insurance_copay": "$10", "goodrx": "$8", "costplus": "$6.30"},
-    {"drug": "Lisinopril 10mg", "quantity": "30 tabs", "insurance_copay": "$8", "goodrx": "$6", "costplus": "$4.80"},
-    {"drug": "Levothyroxine 88mcg", "quantity": "30 tabs", "insurance_copay": "$7", "goodrx": "$5", "costplus": "$4.20"},
-    {"drug": "Amlodipine 5mg", "quantity": "30 tabs", "insurance_copay": "$6", "goodrx": "$4.50", "costplus": "$3.90"},
-    {"drug": "Mounjaro 5mg", "quantity": "4 pens", "insurance_copay": "$50", "goodrx": "$980", "costplus": "Not available"},
-    {"drug": "Ozempic 0.5mg", "quantity": "3ml pen", "insurance_copay": "$45", "goodrx": "$850", "costplus": "Not available"},
-    {"drug": "Humira 40mg", "quantity": "2 pens", "insurance_copay": "$60", "goodrx": "$5,200", "costplus": "Not available"},
-    {"drug": "Enbrel 50mg", "quantity": "4 pens", "insurance_copay": "$65", "goodrx": "$4,800", "costplus": "Not available"},
-    {"drug": "Dupixent 300mg", "quantity": "2 pens", "insurance_copay": "$70", "goodrx": "$3,400", "costplus": "Not available"}
+    {"drug": "Metformin 500mg", "quantity": "30 tabs", "insurance_copay": "$5", "goodrx": "$4", "costplus": "$3.60", "walmart": "$4", "costco": "$3.50"},
+    {"drug": "Atorvastatin 40mg", "quantity": "30 tabs", "insurance_copay": "$10", "goodrx": "$8", "costplus": "$6.30", "walmart": "$9", "costco": "$7.50"},
+    {"drug": "Lisinopril 10mg", "quantity": "30 tabs", "insurance_copay": "$8", "goodrx": "$6", "costplus": "$4.80", "walmart": "$6.50", "costco": "$5.20"},
+    {"drug": "Levothyroxine 88mcg", "quantity": "30 tabs", "insurance_copay": "$7", "goodrx": "$5", "costplus": "$4.20", "walmart": "$5.50", "costco": "$4.80"},
+    {"drug": "Amlodipine 5mg", "quantity": "30 tabs", "insurance_copay": "$6", "goodrx": "$4.50", "costplus": "$3.90", "walmart": "$5", "costco": "$4.20"},
+    {"drug": "Mounjaro 5mg", "quantity": "4 pens", "insurance_copay": "$50", "goodrx": "$980", "costplus": "Not available", "walmart": "$950", "costco": "Not available"},
+    {"drug": "Ozempic 0.5mg", "quantity": "3ml pen", "insurance_copay": "$45", "goodrx": "$850", "costplus": "Not available", "walmart": "$830", "costco": "Not available"},
+    {"drug": "Humira 40mg", "quantity": "2 pens", "insurance_copay": "$60", "goodrx": "$5,200", "costplus": "Not available", "walmart": "$5,100", "costco": "Not available"},
+    {"drug": "Enbrel 50mg", "quantity": "4 pens", "insurance_copay": "$65", "goodrx": "$4,800", "costplus": "Not available", "walmart": "$4,700", "costco": "Not available"},
+    {"drug": "Dupixent 300mg", "quantity": "2 pens", "insurance_copay": "$70", "goodrx": "$3,400", "costplus": "Not available", "walmart": "$3,300", "costco": "Not available"}
   ]
 }
